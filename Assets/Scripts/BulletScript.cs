@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerProjectileScript : MonoBehaviour
+public class BulletScript : MonoBehaviour
 {
     public Vector3 startPos;
     public PlayerClass thisPlayer;

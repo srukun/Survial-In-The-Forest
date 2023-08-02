@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class SceneManager : MonoBehaviour
+public class ArenaManager : MonoBehaviour
 {
     public float mainTimeCounter;
     public float earlyWarningTimer;
@@ -16,11 +16,18 @@ public class SceneManager : MonoBehaviour
     public GameObject mainTimeText;
     public bool isPaused;
     public bool combatStarted;
+    public GameObject[] spawnPoints;
+    public GameObject player;
+    public GameObject slimePrefab;
+    public int maxEnemySpawnable;
+    public int totalCashEarned;
+    public GameObject playerCashText;
+    public int enemySpawnLevel;
     void Start()
     {
         mainTimeCounter = -1f;
-        
-
+        enemySpawnLevel = 1;
+        maxEnemySpawnable = 30;
         LayerCollisionManagement();
     }
 
@@ -101,16 +108,44 @@ public class SceneManager : MonoBehaviour
                 earlyWarningText.SetActive(true);
                 earlyWarningText.GetComponentInChildren<EarlyWarningTextManager>().timer = 0f;
                 earlyWarningText.GetComponentInChildren<EarlyWarningTextManager>().text = "";
-
+                if(maxEnemySpawnable < 16)
+                {
+                    maxEnemySpawnable++;
+                }
+                enemySpawnLevel++;
             }
         }
 
     }
     public void SpawnWave()
     {
+        for (int i = 0; i < maxEnemySpawnable; i++)
+        {
+            GameObject enemy = Instantiate(slimePrefab, spawnPoints[Random.Range(0, spawnPoints.Length)].transform.position, Quaternion.identity);
+            enemy.GetComponent<EnemyController>().player = player;
+            enemy.GetComponent<EnemyController>().thisEnemy.AssignLevel(enemySpawnLevel);
+            float waitTime = 0;
 
+            if (i < maxEnemySpawnable*.33)
+            {
+                waitTime = Random.Range(1, 4);
+            }
+            else if( i >= maxEnemySpawnable*.33 && i < maxEnemySpawnable * .66)
+            {
+                waitTime = Random.Range(6, 12);
+            }
+            else if(i >= maxEnemySpawnable * .66)
+            {
+                waitTime = Random.Range(14, 21);
+            }
+            enemy.GetComponent<EnemyController>().waitTime = waitTime;
+
+        }
     }
-
+    public void UpdatePlayerCash()
+    {
+        playerCashText.GetComponent<TextMeshProUGUI>().SetText("$" + totalCashEarned);
+    }
 
 
 }

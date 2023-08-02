@@ -13,21 +13,30 @@ public class EnemyController : MonoBehaviour
     public GameObject healthbar;
     public GameObject healthbarPrefab;
     public bool playerInRange;
+    public float waitTime;//time the enemy waits before engaging in combat
+    public Vector3 movePos;//position for the ai to move to
     void Start()
     {
         healthbar = Instantiate(healthbarPrefab, transform.position, Quaternion.identity);
         healthbar.GetComponent<EnemyHealthbarController>().enemy = gameObject;
         healthbar.transform.SetParent(GameObject.Find("Canvas").transform);
         UpdateHealthbar();
-        shootTimer = 1f;   
+        shootTimer = 1f;
     }
 
     
     void Update()
     {
-        if (Vector2.Distance(transform.position, player.transform.position) > 1.5f && playerInRange)
+        if(waitTime > 0)
         {
-            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, thisEnemy.speed * Time.deltaTime);
+            waitTime -= Time.deltaTime;
+        }
+        if (Vector2.Distance(transform.position, player.transform.position) > 1.5f && waitTime <= 0)
+        {
+            movePos = player.transform.position;
+            movePos.x += Random.Range(-2.5f, 2.5f);
+            movePos.y += Random.Range(-2.5f, 2.5f);
+            transform.position = Vector3.MoveTowards(transform.position, movePos, thisEnemy.speed * Time.deltaTime);
         }
         Shoot();
     }
@@ -36,12 +45,12 @@ public class EnemyController : MonoBehaviour
     {
         if(!playerInRange && Vector2.Distance(transform.position, player.transform.position) < 5f)
         {
-            healthbar.SetActive(true);
+            //healthbar.SetActive(true);
             playerInRange = true;
         }
         else if(playerInRange && Vector2.Distance(transform.position, player.transform.position) > 5f)
         {
-            healthbar.SetActive(false);
+            //healthbar.SetActive(false);
             playerInRange = false;
         }
         if (shootTimer <= 0 && playerInRange)

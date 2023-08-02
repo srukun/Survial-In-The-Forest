@@ -23,11 +23,19 @@ public class Controller : MonoBehaviour
     public Slider healthBar;
     public Slider experienceBar;
     public TextMeshProUGUI[] experienceBarTextValues;
+    public GameObject arenaManager;
     #region "StartUpdate"
+
+    public GameObject pistol;
+    public GameObject shotgun;
     void Start()
     {
+        thisPlayer = DataManager.thisPlayer;
+        thisPlayer.health = thisPlayer.maxHealth;
         healthBar.maxValue = thisPlayer.maxHealth;
         healthBar.value = thisPlayer.health;
+        pistol.GetComponent<PistolScript>().thisPlayer = thisPlayer;
+        shotgun.GetComponent<ShotgunScript>().thisPlayer = thisPlayer;
         //experienceBar.maxValue = thisPlayer.maxExperience;
         //experienceBar.value = thisPlayer.experience;
         shootTimer = 1f;
@@ -35,15 +43,22 @@ public class Controller : MonoBehaviour
     }
     void Update()
     {
-        AimDirection();
+        /*AimDirection();
         
         WeaponFireAnimation();
-        Shoot();
-
+        Shoot();*/
+/*        if (Input.GetButton("Fire1"))
+        {
+            shotgun.GetComponent<ShotgunScript>().Shoot();
+        }*/
     }
     public void FixedUpdate()
     {
         Move();
+        if (Input.GetButton("Fire1"))
+        {
+            shotgun.GetComponent<ShotgunScript>().Shoot();
+        }
     }
     #endregion
 
@@ -88,28 +103,7 @@ public class Controller : MonoBehaviour
             shootTimer -= Time.deltaTime;
         }
     }
-    void ShootArrow()
-    {
-        Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 direction = (mousePosition - transform.position).normalized;
 
-        // Instantiate the arrow prefab
-        GameObject arrow = Instantiate(playerArrow, transform.position, Quaternion.identity);
-        arrow.transform.eulerAngles = new Vector3(0, 0, aimAngle - 45);
-
-        // Get the arrow's Rigidbody2D component
-        Rigidbody2D rb2D = arrow.GetComponent<Rigidbody2D>();
-
-        // Set the arrow's velocity towards the mouse position
-        rb2D.velocity = direction * 20f;
-
-        // Rotate the arrow sprite to face the shooting direction
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        arrow.transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
-
-        // Destroy the arrow after some time to avoid cluttering the scene
-        Destroy(arrow, 2f);
-    }
     #endregion
 
     #region "Movement"
@@ -135,6 +129,12 @@ public class Controller : MonoBehaviour
     public void GainExperience(float experience)
     {
         //thisPlayer.experience += experience;
+    }
+    public void RewardMoney(int money)
+    {
+        DataManager.totalMoney += money;
+        arenaManager.GetComponent<ArenaManager>().totalCashEarned += money;
+        arenaManager.GetComponent<ArenaManager>().UpdatePlayerCash();
     }
 
 }
