@@ -28,6 +28,7 @@ public class Controller : MonoBehaviour
 
     public GameObject pistol;
     public GameObject shotgun;
+    public GameObject rifle;
     void Start()
     {
         thisPlayer = DataManager.thisPlayer;
@@ -36,6 +37,7 @@ public class Controller : MonoBehaviour
         healthBar.value = thisPlayer.health;
         pistol.GetComponent<PistolScript>().thisPlayer = thisPlayer;
         shotgun.GetComponent<ShotgunScript>().thisPlayer = thisPlayer;
+        rifle.GetComponent<RifleScript>().thisPlayer = thisPlayer;
         //experienceBar.maxValue = thisPlayer.maxExperience;
         //experienceBar.value = thisPlayer.experience;
         shootTimer = 1f;
@@ -57,7 +59,7 @@ public class Controller : MonoBehaviour
         Move();
         if (Input.GetButton("Fire1"))
         {
-            shotgun.GetComponent<ShotgunScript>().Shoot();
+            rifle.GetComponent<RifleScript>().Shoot();
         }
     }
     #endregion
