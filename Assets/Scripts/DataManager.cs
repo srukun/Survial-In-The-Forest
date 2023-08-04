@@ -11,6 +11,7 @@ public class DataManager : MonoBehaviour
     public static float maxTime;
     public static float numEnemiesKilled;
     public static float shotsFired;
+    public static WeaponClass equipedWeapon;
     private void Start()
     {
         if(thisPlayer == null)

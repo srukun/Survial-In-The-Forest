@@ -37,7 +37,6 @@ public class PlayerProjectileScript : MonoBehaviour
             collision.gameObject.GetComponent<EnemyController>().UpdateHealthbar();
             if(collision.gameObject.GetComponent<EnemyController>().thisEnemy.health <= 0)
             {
-                playerObject.GetComponent<Controller>().GainExperience(enemy.experienceRewarded);
                 playerObject.GetComponent<Controller>().RewardMoney(enemy.moneyRewarded);
                 DataManager.numEnemiesKilled++;
                 playerObject.GetComponent<Controller>().UpdateHealthAndExp();

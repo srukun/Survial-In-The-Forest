@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class RifleScript : MonoBehaviour
+public class WeaponScript_Bow : MonoBehaviour
 {
     public PlayerClass thisPlayer;
     public Transform aimTransform;
     public Camera cam;
-    public GameObject playerBullet;
+    public GameObject Prefab_Arrow;
     public float aimAngle;
     public float shootTimer;
     public Vector3 mousePos;
@@ -32,26 +32,17 @@ public class RifleScript : MonoBehaviour
         aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
         aimTransform.eulerAngles = new Vector3(0, 0, aimAngle);
 
-        Vector3 localScale = Vector3.one;
-        if(aimAngle > 90 || aimAngle < -90)
-        {
-            localScale.y = -1f;
-        }
-        else
-        {
-            localScale.y = +1f;
-        }
-        aimTransform.localScale = localScale;
     }
     public void Shoot()
     {
         if (shootTimer <= 0 && Input.GetMouseButton(0))
         {
-            GameObject bullet = Instantiate(playerBullet, firePoint.position, Quaternion.Euler(0, 0, aimAngle + 10));
+            GameObject SceneObject_Arrow = Instantiate(Prefab_Arrow, firePoint.position, Quaternion.Euler(0, 0, aimAngle));
 
-            bullet.GetComponent<Rigidbody2D>().AddForce(bullet.transform.right * 30f, ForceMode2D.Impulse);
+            SceneObject_Arrow.GetComponent<Rigidbody2D>().AddForce(SceneObject_Arrow.transform.right * 18f, ForceMode2D.Impulse);
+            SceneObject_Arrow.transform.eulerAngles += new Vector3(0, 0,- 45);
 
-            AssignBulletInfo(bullet);
+            AssignProjectileInformation(SceneObject_Arrow);
 
             shootTimer = 1 / thisPlayer.weapons[0].fireRate;
         }
@@ -61,10 +52,10 @@ public class RifleScript : MonoBehaviour
             shootTimer -= Time.deltaTime;
         }
     }
-    public void AssignBulletInfo(GameObject bullet)
+    public void AssignProjectileInformation(GameObject SceneObject_Arrow)
     {
-        bullet.GetComponent<PlayerProjectileScript>().thisPlayer = thisPlayer;
-        bullet.GetComponent<PlayerProjectileScript>().range = thisPlayer.weapons[2].range;
-        bullet.GetComponent<PlayerProjectileScript>().playerObject = playerObject;
+        SceneObject_Arrow.GetComponent<PlayerProjectileScript>().thisPlayer = thisPlayer;
+        SceneObject_Arrow.GetComponent<PlayerProjectileScript>().range = thisPlayer.weapons[2].range;
+        SceneObject_Arrow.GetComponent<PlayerProjectileScript>().playerObject = playerObject;
     }
 }

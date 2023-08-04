@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class RifleScript : MonoBehaviour
+public class WeaponScript_CrossBow : MonoBehaviour
 {
     public PlayerClass thisPlayer;
     public Transform aimTransform;
     public Camera cam;
-    public GameObject playerBullet;
+    public GameObject Prefab_Arrow;
     public float aimAngle;
     public float shootTimer;
     public Vector3 mousePos;
@@ -47,11 +47,12 @@ public class RifleScript : MonoBehaviour
     {
         if (shootTimer <= 0 && Input.GetMouseButton(0))
         {
-            GameObject bullet = Instantiate(playerBullet, firePoint.position, Quaternion.Euler(0, 0, aimAngle + 10));
+            GameObject SceneObject_Arrow = Instantiate(Prefab_Arrow, firePoint.position, Quaternion.Euler(0, 0, aimAngle));
 
-            bullet.GetComponent<Rigidbody2D>().AddForce(bullet.transform.right * 30f, ForceMode2D.Impulse);
+            SceneObject_Arrow.GetComponent<Rigidbody2D>().AddForce(SceneObject_Arrow.transform.right * 18f, ForceMode2D.Impulse);
+            SceneObject_Arrow.transform.eulerAngles += new Vector3(0, 0, -45);
 
-            AssignBulletInfo(bullet);
+            AssignBulletInfo(SceneObject_Arrow);
 
             shootTimer = 1 / thisPlayer.weapons[0].fireRate;
         }

@@ -25,88 +25,99 @@ public class Controller : MonoBehaviour
     public TextMeshProUGUI[] experienceBarTextValues;
     public GameObject arenaManager;
     #region "StartUpdate"
-
+    //guns
     public GameObject pistol;
     public GameObject shotgun;
     public GameObject rifle;
+    //bows
+    public GameObject Weapon_Bow;
+    public GameObject Weapon_LongBow;
+    public GameObject Weapon_CrossBow;
     void Start()
     {
         thisPlayer = DataManager.thisPlayer;
         thisPlayer.health = thisPlayer.maxHealth;
         healthBar.maxValue = thisPlayer.maxHealth;
         healthBar.value = thisPlayer.health;
+        //weapons
         pistol.GetComponent<PistolScript>().thisPlayer = thisPlayer;
         shotgun.GetComponent<ShotgunScript>().thisPlayer = thisPlayer;
         rifle.GetComponent<RifleScript>().thisPlayer = thisPlayer;
-        //experienceBar.maxValue = thisPlayer.maxExperience;
-        //experienceBar.value = thisPlayer.experience;
+        //bows
+        Weapon_Bow.GetComponent<WeaponScript_Bow>().thisPlayer = thisPlayer;
+        Weapon_LongBow.GetComponent<WeaponScript_LongBow>().thisPlayer = thisPlayer;
+        Weapon_CrossBow.GetComponent<WeaponScript_CrossBow>().thisPlayer = thisPlayer;
+
+
+        if(DataManager.equipedWeapon.name != "Pistol")
+        {
+            pistol.SetActive(false);
+        }
+        if(DataManager.equipedWeapon.name != "Shotgun")
+        {
+            shotgun.SetActive(false);
+        }
+        if (DataManager.equipedWeapon.name != "Rifle")
+        {
+            rifle.SetActive(false);
+        }
+        if (DataManager.equipedWeapon.name != "Bow")
+        {
+            Weapon_Bow.SetActive(false);
+        }
+        if (DataManager.equipedWeapon.name != "Long Bow")
+        {
+            Weapon_LongBow.SetActive(false);
+        }
+        if (DataManager.equipedWeapon.name != "Crossbow")
+        {
+            Weapon_CrossBow.SetActive(false);
+        }
+
+
         shootTimer = 1f;
         UpdateHealthAndExp();
     }
     void Update()
     {
-        /*AimDirection();
-        
-        WeaponFireAnimation();
-        Shoot();*/
-/*        if (Input.GetButton("Fire1"))
-        {
-            shotgun.GetComponent<ShotgunScript>().Shoot();
-        }*/
+
     }
     public void FixedUpdate()
     {
         Move();
-        if (Input.GetButton("Fire1"))
+        FireWeapon();
+    }
+    #endregion
+
+    public void FireWeapon()
+    {
+        if (Input.GetButton("Fire1") && pistol.activeInHierarchy)
+        {
+            pistol.GetComponent<PistolScript>().Shoot();
+        }
+        else if (Input.GetButton("Fire1") && shotgun.activeInHierarchy)
+        {
+            shotgun.GetComponent<ShotgunScript>().Shoot();
+        }
+        else if (Input.GetButton("Fire1") && rifle.activeInHierarchy)
         {
             rifle.GetComponent<RifleScript>().Shoot();
         }
-    }
-    #endregion
-
-
-    #region "Shooting"
-    public void WeaponFireAnimation()
-    {
-        if (Input.GetMouseButton(0))
+        else if (Input.GetButton("Fire1") && Weapon_Bow.activeInHierarchy)
         {
-            bowAnimator.SetFloat("IsShooting", 1);
+            Weapon_Bow.GetComponent<WeaponScript_Bow>().Shoot();
         }
-        else
+        else if (Input.GetButton("Fire1") && Weapon_LongBow.activeInHierarchy)
         {
-            bowAnimator.SetFloat("IsShooting", 0);
+            Weapon_LongBow.GetComponent<WeaponScript_LongBow>().Shoot();
+        }
+        else if (Input.GetButton("Fire1") && Weapon_CrossBow.activeInHierarchy)
+        {
+            Weapon_CrossBow.GetComponent<WeaponScript_CrossBow>().Shoot();
         }
     }
 
-    public void AimDirection()
-    {
-        mousePos = cam.GetComponent<Camera>().ScreenToWorldPoint(Input.mousePosition);
-        Vector3 aimDirection = (mousePos - transform.position).normalized;
-        aimAngle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
-        aimTransform.eulerAngles = new Vector3(0, 0, aimAngle - 90);
-    }
-    public void Shoot()
-    {
-        if (shootTimer <= 0 && Input.GetMouseButton(0))
-        {
-            GameObject arrow = Instantiate(playerArrow, firePoint.position, firePoint.rotation);
-            
-            arrow.transform.eulerAngles = new Vector3(0, 0, aimAngle - 45);
-            arrow.GetComponent<Rigidbody2D>().AddForce( aimTransform.up * 20f, ForceMode2D.Impulse);
 
-            arrow.GetComponent<PlayerProjectileScript>().thisPlayer = thisPlayer;
-            arrow.GetComponent<PlayerProjectileScript>().range = thisPlayer.weapons[0].range;
-            arrow.GetComponent<PlayerProjectileScript>().playerObject = gameObject;
-            shootTimer = 1 / thisPlayer.weapons[0].fireRate;
-        }
-
-        if (shootTimer > 0)
-        {
-            shootTimer -= Time.deltaTime;
-        }
-    }
-
-    #endregion
 
     #region "Movement"
     public void Move()
@@ -125,13 +136,9 @@ public class Controller : MonoBehaviour
     {
         healthBar.maxValue = thisPlayer.maxHealth;
         healthBar.value = thisPlayer.health;
-        //experienceBar.maxValue = thisPlayer.experience;
-        //experienceBar.value = thisPlayer.experience;
+
     }
-    public void GainExperience(float experience)
-    {
-        //thisPlayer.experience += experience;
-    }
+
     public void RewardMoney(int money)
     {
         DataManager.totalMoney += money;
