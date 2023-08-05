@@ -33,4 +33,8 @@ public class ButtonManager : MonoBehaviour
     {
         SceneManager.LoadScene(4);
     }
+    public void LoadCredits()
+    {
+        SceneManager.LoadScene(7);
+    }
 }

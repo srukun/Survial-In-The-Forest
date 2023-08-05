@@ -10,13 +10,16 @@ public class NameSelectionSceneManager : MonoBehaviour
     public GameObject inputField;
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            SelectName();
+        }
     }
     public void SelectName()
     {

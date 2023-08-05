@@ -11,6 +11,7 @@ public class EnemyHealthbarController : MonoBehaviour
     void Start()
     {
         cam = GameObject.Find("Main Camera");
+        transform.localScale= Vector3.one;
     }
 
     // Update is called once per frame
