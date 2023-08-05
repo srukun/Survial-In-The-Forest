@@ -22,6 +22,14 @@ public class PistolScript : MonoBehaviour
     void Update()
     {
         AimDirection();
+        if(firePoint.transform.position.x < playerObject.transform.position.x)
+        {
+            playerObject.GetComponent<Animator>().SetFloat("Horizontal", 1);
+        }
+        if(firePoint.transform.position.x >= playerObject.transform.position.x)
+        {
+            playerObject.GetComponent<Animator>().SetFloat("Horizontal", -1);
+        }
 
     }
     public void AimDirection()
@@ -32,7 +40,7 @@ public class PistolScript : MonoBehaviour
         aimTransform.eulerAngles = new Vector3(0, 0, aimAngle);
 
         Vector3 localScale = Vector3.one;
-        if(aimAngle > 90 || aimAngle < -90)
+        if(aimAngle >= 90 || aimAngle < -90)
         {
             localScale.y = -1f;
         }
@@ -52,9 +60,9 @@ public class PistolScript : MonoBehaviour
             arrow.GetComponent<Rigidbody2D>().AddForce(firePoint.right * 50f, ForceMode2D.Impulse);
 
             arrow.GetComponent<PlayerProjectileScript>().thisPlayer = thisPlayer;
-            arrow.GetComponent<PlayerProjectileScript>().range = thisPlayer.weapons[0].range;
+            arrow.GetComponent<PlayerProjectileScript>().range = DataManager.equipedWeapon.range;
             arrow.GetComponent<PlayerProjectileScript>().playerObject = playerObject;
-            shootTimer = 1 / thisPlayer.weapons[0].fireRate;
+            shootTimer = 1 / DataManager.equipedWeapon.fireRate;
         }
 
         if (shootTimer > 0)

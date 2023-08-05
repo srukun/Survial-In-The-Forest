@@ -15,7 +15,7 @@ PlayerSettings:
   companyName: DefaultCompany
   productName: Arena Survival Game
   defaultCursor: {fileID: 2800000, guid: 88c6f47b88dc69443a912d942131b2b1, type: 3}
-  cursorHotspot: {x: 16, y: 16}
+  cursorHotspot: {x: 32, y: 32}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
   m_ShowUnitySplashScreen: 1
   m_ShowUnitySplashLogo: 1

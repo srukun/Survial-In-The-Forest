@@ -23,6 +23,14 @@ public class WeaponScript_Bow : MonoBehaviour
     void Update()
     {
         AimDirection();
+        if (firePoint.transform.position.x < playerObject.transform.position.x)
+        {
+            playerObject.GetComponent<Animator>().SetFloat("Horizontal", 1);
+        }
+        if (firePoint.transform.position.x >= playerObject.transform.position.x)
+        {
+            playerObject.GetComponent<Animator>().SetFloat("Horizontal", -1);
+        }
 
     }
     public void AimDirection()
@@ -44,7 +52,7 @@ public class WeaponScript_Bow : MonoBehaviour
 
             AssignProjectileInformation(SceneObject_Arrow);
 
-            shootTimer = 1 / thisPlayer.weapons[0].fireRate;
+            shootTimer = 1 / DataManager.equipedWeapon.fireRate;
         }
 
         if (shootTimer > 0)
@@ -55,7 +63,7 @@ public class WeaponScript_Bow : MonoBehaviour
     public void AssignProjectileInformation(GameObject SceneObject_Arrow)
     {
         SceneObject_Arrow.GetComponent<PlayerProjectileScript>().thisPlayer = thisPlayer;
-        SceneObject_Arrow.GetComponent<PlayerProjectileScript>().range = thisPlayer.weapons[2].range;
+        SceneObject_Arrow.GetComponent<PlayerProjectileScript>().range = DataManager.equipedWeapon.range;
         SceneObject_Arrow.GetComponent<PlayerProjectileScript>().playerObject = playerObject;
     }
 }

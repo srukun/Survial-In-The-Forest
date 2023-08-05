@@ -20,7 +20,7 @@ public class EnemyProjectileScript : MonoBehaviour
     }
     private void Travel()
     {
-        transform.position = Vector3.MoveTowards(transform.position, endPos, 12f * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, endPos, 3f * Time.deltaTime);
         if(Vector3.Distance(transform.position, startPos) >= range)
         {
             Destroy(gameObject);
@@ -32,7 +32,11 @@ public class EnemyProjectileScript : MonoBehaviour
         {
             collision.gameObject.GetComponent<Controller>().thisPlayer.TakeDamage(thisEnemy.damage);
             collision.gameObject.GetComponent<Controller>().UpdateHealthAndExp();
-
+            if(collision.gameObject.GetComponent<Controller>().thisPlayer.health <= 0)
+            {
+                collision.gameObject.GetComponent<Controller>().arenaManager.GetComponent<ArenaManager>().isPaused = true;
+                collision.gameObject.GetComponent<Controller>().arenaManager.GetComponent<ArenaManager>().DisplayDeathScreen();
+            }
             Destroy(gameObject);
         }
     }

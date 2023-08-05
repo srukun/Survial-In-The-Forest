@@ -955,6 +955,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 288952068}
     m_Modifications:
+    - target: {fileID: 7440244421369807606, guid: 1328862e406582b488cfb4c8a171d197, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7440244421369807606, guid: 1328862e406582b488cfb4c8a171d197, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7440244421369807606, guid: 1328862e406582b488cfb4c8a171d197, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7440244421369807608, guid: 1328862e406582b488cfb4c8a171d197, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1040,6 +1052,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7440244421369807609, guid: 1328862e406582b488cfb4c8a171d197, type: 3}
+      propertyPath: m_Colors.m_NormalColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7440244421369807609, guid: 1328862e406582b488cfb4c8a171d197, type: 3}
+      propertyPath: m_Colors.m_NormalColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7440244421369807609, guid: 1328862e406582b488cfb4c8a171d197, type: 3}
+      propertyPath: m_Colors.m_NormalColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7440244421369807609, guid: 1328862e406582b488cfb4c8a171d197, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1898154116}
@@ -1062,6 +1086,30 @@ PrefabInstance:
     - target: {fileID: 7440244421452022352, guid: 1328862e406582b488cfb4c8a171d197, type: 3}
       propertyPath: m_text
       value: Done
+      objectReference: {fileID: 0}
+    - target: {fileID: 7440244421452022352, guid: 1328862e406582b488cfb4c8a171d197, type: 3}
+      propertyPath: m_fontSize
+      value: 48
+      objectReference: {fileID: 0}
+    - target: {fileID: 7440244421452022352, guid: 1328862e406582b488cfb4c8a171d197, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7440244421452022352, guid: 1328862e406582b488cfb4c8a171d197, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7440244421452022352, guid: 1328862e406582b488cfb4c8a171d197, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7440244421452022352, guid: 1328862e406582b488cfb4c8a171d197, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 48
+      objectReference: {fileID: 0}
+    - target: {fileID: 7440244421452022352, guid: 1328862e406582b488cfb4c8a171d197, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4278190080
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1328862e406582b488cfb4c8a171d197, type: 3}

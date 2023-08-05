@@ -23,7 +23,14 @@ public class WeaponScript_CrossBow : MonoBehaviour
     void Update()
     {
         AimDirection();
-
+        if (firePoint.transform.position.x < playerObject.transform.position.x)
+        {
+            playerObject.GetComponent<Animator>().SetFloat("Horizontal", 1);
+        }
+        if (firePoint.transform.position.x >= playerObject.transform.position.x)
+        {
+            playerObject.GetComponent<Animator>().SetFloat("Horizontal", -1);
+        }
     }
     public void AimDirection()
     {
@@ -54,7 +61,7 @@ public class WeaponScript_CrossBow : MonoBehaviour
 
             AssignBulletInfo(SceneObject_Arrow);
 
-            shootTimer = 1 / thisPlayer.weapons[0].fireRate;
+            shootTimer = 1 / DataManager.equipedWeapon.fireRate;
         }
 
         if (shootTimer > 0)
@@ -65,7 +72,7 @@ public class WeaponScript_CrossBow : MonoBehaviour
     public void AssignBulletInfo(GameObject bullet)
     {
         bullet.GetComponent<PlayerProjectileScript>().thisPlayer = thisPlayer;
-        bullet.GetComponent<PlayerProjectileScript>().range = thisPlayer.weapons[2].range;
+        bullet.GetComponent<PlayerProjectileScript>().range = DataManager.equipedWeapon.range;
         bullet.GetComponent<PlayerProjectileScript>().playerObject = playerObject;
     }
 }

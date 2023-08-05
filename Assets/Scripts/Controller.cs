@@ -33,6 +33,13 @@ public class Controller : MonoBehaviour
     public GameObject Weapon_Bow;
     public GameObject Weapon_LongBow;
     public GameObject Weapon_CrossBow;
+
+    //screen shake
+    private float shakeDuration = 0f;
+    private float shakeMagnitude = 0.025f;
+    private float dampingSpeed = 2.0f;
+    Vector3 initialPosition;
+
     void Start()
     {
         thisPlayer = DataManager.thisPlayer;
@@ -47,9 +54,9 @@ public class Controller : MonoBehaviour
         Weapon_Bow.GetComponent<WeaponScript_Bow>().thisPlayer = thisPlayer;
         Weapon_LongBow.GetComponent<WeaponScript_LongBow>().thisPlayer = thisPlayer;
         Weapon_CrossBow.GetComponent<WeaponScript_CrossBow>().thisPlayer = thisPlayer;
+        arenaManager.GetComponent<ArenaManager>().thisPlayer = thisPlayer;
 
-
-        if(DataManager.equipedWeapon.name != "Pistol")
+        if (DataManager.equipedWeapon.name != "Pistol")
         {
             pistol.SetActive(false);
         }
@@ -74,7 +81,7 @@ public class Controller : MonoBehaviour
             Weapon_CrossBow.SetActive(false);
         }
 
-
+        initialPosition = cam.transform.position;
         shootTimer = 1f;
         UpdateHealthAndExp();
     }
@@ -84,8 +91,12 @@ public class Controller : MonoBehaviour
     }
     public void FixedUpdate()
     {
-        Move();
-        FireWeapon();
+        if (!IsPaused())
+        {
+            Move();
+            FireWeapon();
+        }
+        ScreenShake();
     }
     #endregion
 
@@ -127,7 +138,6 @@ public class Controller : MonoBehaviour
         transform.position += movement.normalized * Time.deltaTime * thisPlayer.speed;
 
 
-        animator.SetFloat("Horizontal", mousePos.x);
         animator.SetFloat("Speed", movement.sqrMagnitude);
     }
 
@@ -144,6 +154,25 @@ public class Controller : MonoBehaviour
         DataManager.totalMoney += money;
         arenaManager.GetComponent<ArenaManager>().totalCashEarned += money;
         arenaManager.GetComponent<ArenaManager>().UpdatePlayerCash();
+    }
+    public bool IsPaused()
+    {
+        return arenaManager.GetComponent<ArenaManager>().isPaused;
+
+    }
+    public void ScreenShake()
+    {
+        if (shakeDuration > 0)
+        {
+            cam.transform.localPosition = initialPosition + Random.insideUnitSphere * shakeMagnitude;
+
+            shakeDuration -= Time.deltaTime * dampingSpeed;
+        }
+        else
+        {
+            shakeDuration = 0f;
+            cam.transform.localPosition = initialPosition;
+        }
     }
 
 }

@@ -33,7 +33,7 @@ public class PlayerProjectileScript : MonoBehaviour
         if(collision.gameObject.tag == "Enemy")
         {
             EnemyClass enemy = collision.gameObject.GetComponent<EnemyController>().thisEnemy;
-            enemy.TakeDamage(thisPlayer.weapons[0].damage);
+            enemy.TakeDamage(thisPlayer.GetDamage());
             collision.gameObject.GetComponent<EnemyController>().UpdateHealthbar();
             if(collision.gameObject.GetComponent<EnemyController>().thisEnemy.health <= 0)
             {

@@ -23,6 +23,14 @@ public class RifleScript : MonoBehaviour
     void Update()
     {
         AimDirection();
+        if (firePoint.transform.position.x < playerObject.transform.position.x)
+        {
+            playerObject.GetComponent<Animator>().SetFloat("Horizontal", 1);
+        }
+        if (firePoint.transform.position.x >= playerObject.transform.position.x)
+        {
+            playerObject.GetComponent<Animator>().SetFloat("Horizontal", -1);
+        }
 
     }
     public void AimDirection()
@@ -33,7 +41,7 @@ public class RifleScript : MonoBehaviour
         aimTransform.eulerAngles = new Vector3(0, 0, aimAngle);
 
         Vector3 localScale = Vector3.one;
-        if(aimAngle > 90 || aimAngle < -90)
+        if(aimAngle >= 90 || aimAngle < -90)
         {
             localScale.y = -1f;
         }
@@ -53,7 +61,7 @@ public class RifleScript : MonoBehaviour
 
             AssignBulletInfo(bullet);
 
-            shootTimer = 1 / thisPlayer.weapons[0].fireRate;
+            shootTimer = 1 / DataManager.equipedWeapon.fireRate;
         }
 
         if (shootTimer > 0)
@@ -64,7 +72,7 @@ public class RifleScript : MonoBehaviour
     public void AssignBulletInfo(GameObject bullet)
     {
         bullet.GetComponent<PlayerProjectileScript>().thisPlayer = thisPlayer;
-        bullet.GetComponent<PlayerProjectileScript>().range = thisPlayer.weapons[2].range;
+        bullet.GetComponent<PlayerProjectileScript>().range = DataManager.equipedWeapon.range;
         bullet.GetComponent<PlayerProjectileScript>().playerObject = playerObject;
     }
 }

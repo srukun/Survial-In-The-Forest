@@ -19,7 +19,7 @@ public class EnemyController : MonoBehaviour
     {
         healthbar = Instantiate(healthbarPrefab, transform.position, Quaternion.identity);
         healthbar.GetComponent<EnemyHealthbarController>().enemy = gameObject;
-        healthbar.transform.SetParent(GameObject.Find("Canvas").transform);
+        healthbar.transform.SetParent(GameObject.Find("EnemyHealthBarUIHolder").transform);
         UpdateHealthbar();
         shootTimer = 1f;
     }
@@ -27,18 +27,22 @@ public class EnemyController : MonoBehaviour
     
     void Update()
     {
-        if(waitTime > 0)
+        if (!player.GetComponent<Controller>().IsPaused())
         {
-            waitTime -= Time.deltaTime;
+            if (waitTime > 0)
+            {
+                waitTime -= Time.deltaTime;
+            }
+            if (Vector2.Distance(transform.position, player.transform.position) > 1.5f && waitTime <= 0)
+            {
+                movePos = player.transform.position;
+                movePos.x += Random.Range(-2.5f, 2.5f);
+                movePos.y += Random.Range(-2.5f, 2.5f);
+                transform.position = Vector3.MoveTowards(transform.position, movePos, thisEnemy.speed * Time.deltaTime);
+            }
+            Shoot();
         }
-        if (Vector2.Distance(transform.position, player.transform.position) > 1.5f && waitTime <= 0)
-        {
-            movePos = player.transform.position;
-            movePos.x += Random.Range(-2.5f, 2.5f);
-            movePos.y += Random.Range(-2.5f, 2.5f);
-            transform.position = Vector3.MoveTowards(transform.position, movePos, thisEnemy.speed * Time.deltaTime);
-        }
-        Shoot();
+        
     }
 
     public void Shoot()

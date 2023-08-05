@@ -11,14 +11,13 @@ public class PlayerClass
     public float maxHealth;
     public float health;
     public int level;
-    public float maxExperience;
-    public float experience;
+
     public float speed;
-    public int damage;
+    public float damage;
     public int levelUpCost;
     public List<WeaponClass> weapons;
     public PlayerClass() {
-        maxHealth = 20;
+        maxHealth = 30;
         level = 1;
         speed = 6;
         damage = 4;
@@ -40,5 +39,9 @@ public class PlayerClass
         }
         damage += 2;
         levelUpCost *= 2;
+    }
+    public float GetDamage()
+    {
+        return damage + DataManager.equipedWeapon.damage;
     }
 }

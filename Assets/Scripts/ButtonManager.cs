@@ -11,7 +11,15 @@ public class ButtonManager : MonoBehaviour
     }
     public void LoadArena()
     {
-        SceneManager.LoadScene(1);
+        if(DataManager.firstTimePlaying != 1) 
+        {
+            DataManager.firstTimePlaying = 1;
+            SceneManager.LoadScene(6);
+        }
+        else if (DataManager.firstTimePlaying == 1)
+        {
+            SceneManager.LoadScene(1);
+        }
     }
     public void LoadShop()
     {

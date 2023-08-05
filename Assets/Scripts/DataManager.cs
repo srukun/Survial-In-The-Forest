@@ -12,13 +12,13 @@ public class DataManager : MonoBehaviour
     public static float numEnemiesKilled;
     public static float shotsFired;
     public static WeaponClass equipedWeapon;
+    public static int firstTimePlaying;
     private void Start()
     {
-        if(thisPlayer == null)
+        if (thisPlayer == null)
         {
             SceneManager.LoadScene(5);
         }
-        totalMoney = 9999;
     }
 
 }

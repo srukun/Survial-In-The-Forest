@@ -6,6 +6,7 @@ using TMPro;
 
 public class ArenaManager : MonoBehaviour
 {
+    public bool isPaused;
     public float mainTimeCounter;
     public float earlyWarningTimer;
     public float waveSpawnTimer;
@@ -14,7 +15,6 @@ public class ArenaManager : MonoBehaviour
 
     public GameObject earlyWarningText;
     public GameObject mainTimeText;
-    public bool isPaused;
     public bool combatStarted;
     public GameObject[] spawnPoints;
     public GameObject player;
@@ -23,20 +23,30 @@ public class ArenaManager : MonoBehaviour
     public int totalCashEarned;
     public GameObject playerCashText;
     public int enemySpawnLevel;
+    public GameObject pauseButton;
+    public GameObject resumeButton;
+    public GameObject pauseScreen;
+    public GameObject deathScreen;
+    public PlayerClass thisPlayer;
     void Start()
     {
         mainTimeCounter = -1f;
         enemySpawnLevel = 1;
-        maxEnemySpawnable = 30;
+        maxEnemySpawnable = 14;
         LayerCollisionManagement();
+        thisPlayer = player.GetComponent<Controller>().thisPlayer;
+        UpdatePlayerCash();
     }
 
 
     void Update()
     {
-        earlyWarningManagement();
-        mainTimeCountManagement();
-        WaveSpawnManagement();
+        if (!isPaused)
+        {
+            earlyWarningManagement();
+            mainTimeCountManagement();
+            WaveSpawnManagement();
+        }
     }
     public void LayerCollisionManagement()
     {
@@ -146,6 +156,28 @@ public class ArenaManager : MonoBehaviour
     {
         playerCashText.GetComponent<TextMeshProUGUI>().SetText("$" + totalCashEarned);
     }
+    public void PauseGame()
+    {
+        if (!isPaused && player.GetComponent<Controller>().thisPlayer.health > 0)
+        {
+            isPaused = true;
+            pauseScreen.SetActive(true);
+        }
+    }
+    public void Unpause()
+    {
+        if (isPaused && player.GetComponent<Controller>().thisPlayer.health > 0)
+        {
+            isPaused = false;
+            pauseScreen.SetActive(false);
+        }
+    }
+    public void DisplayDeathScreen()
+    {
 
+        isPaused = true;
+        deathScreen.SetActive(true);
+        pauseScreen.SetActive(false);
 
+    }
 }

@@ -23,44 +23,44 @@ public class EnemyClass
     {
         maxHealth = 10 + 4 * level;
         health = maxHealth;
-        moneyRewarded = 1 + 2 * level;
+        moneyRewarded = 15 + 3 * level;
         if(level >= 1)
         {
-            speed = 2;
+            speed = 1.8f;
         }
         if(level > 3)
         {
-            speed = 2.3f;
+            speed = 2f;
         }
         if (level > 6)
         {
-            speed = 2.6f;
+            speed = 2.5f;
         }
-        damage = 3 + .5f * level;
+        damage = 2 + 1.75f * level;
         if(level >= 1)
         {
-            range = 4;
+            range = 6f;
         }
         if (level >= 3)
         {
-            range = 5;
+            range = 7.33f;
         }
         if (level >= 6)
         {
-            range = 5.5f;
+            range = 8f;
         }
         //firerate
         if (level >= 1)
         {
-            fireRate = 1;
+            fireRate = 3;
         }
         if (level >= 2)
         {
-            range = 2;
+            fireRate = 5;
         }
-        if (level >= 5)
+        if (level >= 7)
         {
-            range = 3;
+            fireRate = 7;
         }
     }
 }

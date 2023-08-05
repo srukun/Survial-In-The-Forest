@@ -8,9 +8,11 @@ public class UpgradeSceneManager : MonoBehaviour
     public GameObject levelUpButton;
     public GameObject currentLevelInformation;
     public GameObject nextLevelInformation;
+    public GameObject totalCash;
     void Start()
     {
         UpdateTexts();
+        UpdateCash();
     }
 
     // Update is called once per frame
@@ -20,8 +22,9 @@ public class UpgradeSceneManager : MonoBehaviour
     }
     public void LevelUp()
     {
-        if(DataManager.thisPlayer.levelUpCost < DataManager.totalMoney)
+        if(DataManager.thisPlayer.levelUpCost <= DataManager.totalMoney)
         {
+            DataManager.totalMoney -= DataManager.thisPlayer.levelUpCost;
             DataManager.thisPlayer.LevelUp();
             UpdateTexts();
         }
@@ -36,7 +39,7 @@ public class UpgradeSceneManager : MonoBehaviour
         {
             nextLevelInformation.GetComponent<TextMeshProUGUI>().SetText((DataManager.thisPlayer.level + 1) +
             "\r\n" +
-            (DataManager.thisPlayer.maxHealth + 5) +
+             (DataManager.thisPlayer.maxHealth + 5) +
             "\r\n" +
             DataManager.thisPlayer.speed +
             "\r\n" +
@@ -54,5 +57,10 @@ public class UpgradeSceneManager : MonoBehaviour
                 "\r\n");
         }
         levelUpButton.GetComponentInChildren<TextMeshProUGUI>().SetText("Level Up $" + DataManager.thisPlayer.levelUpCost);
+        UpdateCash();
+    }
+    public void UpdateCash()
+    {
+        totalCash.GetComponent<TextMeshProUGUI>().SetText("$" + DataManager.totalMoney);
     }
 }
