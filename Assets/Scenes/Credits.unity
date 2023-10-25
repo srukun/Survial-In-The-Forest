@@ -183,8 +183,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "Fonts: \n\"Thaleah\" Fat by Rick Hoppmann\n\"monogram\" by datagoblin\n"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 931cafb7386e0044893d419f6ffa2a29, type: 2}
-  m_sharedMaterial: {fileID: 3846883278489865993, guid: 931cafb7386e0044893d419f6ffa2a29, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: a4f229ba2bc89ab4db456b7f6766340e, type: 2}
+  m_sharedMaterial: {fileID: -2158792686976175445, guid: a4f229ba2bc89ab4db456b7f6766340e, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -388,8 +388,8 @@ MonoBehaviour:
 
 '
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: d9e6908ce3c5d1342b3f42ac72422654, type: 2}
-  m_sharedMaterial: {fileID: -849829577492101463, guid: d9e6908ce3c5d1342b3f42ac72422654, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 94e86d4cec3426745a81583fcfbf4ecd, type: 2}
+  m_sharedMaterial: {fileID: -6947736401182318845, guid: 94e86d4cec3426745a81583fcfbf4ecd, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -768,7 +768,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.24313726, g: 0.24313726, b: 0.24705882, a: 0}
+  m_BackGroundColor: {r: 0.12941177, g: 0.11764706, b: 0.12941177, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

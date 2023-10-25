@@ -56,7 +56,7 @@ public class UpgradeSceneManager : MonoBehaviour
                 (DataManager.thisPlayer.damage + 2) +
                 "\r\n");
         }
-        levelUpButton.GetComponentInChildren<TextMeshProUGUI>().SetText("Level Up $" + DataManager.thisPlayer.levelUpCost);
+        levelUpButton.GetComponentInChildren<TextMeshProUGUI>().SetText("LEVEL UP $" + DataManager.thisPlayer.levelUpCost);
         UpdateCash();
     }
     public void UpdateCash()

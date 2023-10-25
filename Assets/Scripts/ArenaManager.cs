@@ -47,6 +47,10 @@ public class ArenaManager : MonoBehaviour
             mainTimeCountManagement();
             WaveSpawnManagement();
         }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            PauseGame();
+        }
     }
     public void LayerCollisionManagement()
     {

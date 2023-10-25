@@ -100,6 +100,7 @@ public class Controller : MonoBehaviour
     }
     #endregion
 
+
     public void FireWeapon()
     {
         if (Input.GetButton("Fire1") && pistol.activeInHierarchy)
@@ -136,7 +137,6 @@ public class Controller : MonoBehaviour
         movement.x = Input.GetAxis("Horizontal");
         movement.y = Input.GetAxis("Vertical");
         transform.position += movement.normalized * Time.deltaTime * thisPlayer.speed;
-
 
         animator.SetFloat("Speed", movement.sqrMagnitude);
     }

@@ -20,7 +20,7 @@ public class EnemyHealthbarController : MonoBehaviour
         if(enemy != null)
         {
             position = cam.GetComponent<Camera>().WorldToScreenPoint(enemy.transform.position);
-            position.y += 45;
+            position.y += 30;
             transform.position = position;
         }
         else
